@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export const getFinancialInsights = async (transactions: any[]) => {
     try {
         console.log("Getting financial insights from Gemini AI");
-        const genAI = new GoogleGenerativeAI("AIzaSyBxZDme6NVa44B0ytrOAakbQ_bA9A48q1M");
+        const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
         const totalIncome = transactions
