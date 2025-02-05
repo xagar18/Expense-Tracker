@@ -119,7 +119,7 @@ const Help = () => {
                         <Phone className="h-12 w-12 text-purple-600 mb-4" />
                         <h3 className="font-semibold mb-2">Phone Support</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Call us at +1 (555) 123-4567
+                            Call us at +91-8591070791
                         </p>
                         <Button variant="outline" className="w-full">Call Now</Button>
                     </Card>
@@ -128,7 +128,7 @@ const Help = () => {
                         <Mail className="h-12 w-12 text-purple-600 mb-4" />
                         <h3 className="font-semibold mb-2">Email Support</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            support@fintrack.com
+                            sagaryadav6352@gmail.com
                         </p>
                         <Button variant="outline" className="w-full">Send Email</Button>
                     </Card>
