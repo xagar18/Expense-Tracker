@@ -83,7 +83,7 @@ export const TransactionsTable = ({ transactions, onTransactionDeleted }: Transa
                                         variant="ghost" 
                                         size="icon"
                                         onClick={() => handleDelete(transaction)}
-                                        className="opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50"
+                                        className="opacity-1 group-hover:opacity-100 transition-opacity hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50"
                                     >
                                         <Trash className="h-4 w-4" />
                                     </Button>
