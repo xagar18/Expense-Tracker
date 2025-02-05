@@ -117,15 +117,6 @@ export const SignInForm = ({ onSuccess, onClose }: SignInFormProps) => {
         </svg>
         Continue with Google
       </Button>
-      <div className="text-center text-sm">
-        <span className="text-gray-500">Dont have account?</span>{" "}
-        <a
-          href="/signup"
-          className="text-purple-600 hover:underline font-medium cursor-pointer"
-        >
-          Sign Up
-        </a>
-      </div>
     </div>
   );
 };

@@ -8,13 +8,15 @@ import { AISuggestions } from "@/components/AISuggestions";
 import { Transaction, transactionService } from "@/lib/appwrite";
 import { authService } from "@/lib/auth";
 import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState<any>(null);
+    const isMobile = useIsMobile();
 
     const checkAuth = async () => {
         try {
@@ -66,15 +68,21 @@ const Index = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
             <Navbar />
-            <div className="max-w-7xl mx-auto pt-20 px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="max-w-7xl mx-auto pt-16 sm:pt-20 px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
                 <FinancialSummaryCards transactions={transactions} />
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[400px]">
-                    <TransactionForm 
-                        onTransactionAdded={() => fetchTransactions(currentUser.$id)}
-                        userId={currentUser.$id}
-                    />
-                    <AISuggestions transactions={transactions} />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="h-full">
+                        <TransactionForm 
+                            onTransactionAdded={() => fetchTransactions(currentUser.$id)}
+                            userId={currentUser.$id}
+                        />
+                    </div>
+                    {(!isMobile || transactions.length > 0) && (
+                        <div className="h-full">
+                            <AISuggestions transactions={transactions} />
+                        </div>
+                    )}
                 </div>
 
                 <TransactionsTable 

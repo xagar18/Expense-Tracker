@@ -12,9 +12,7 @@ export const authService = {
             );
             console.log("User signed up successfully:", response);
             
-            // Store additional user data if provided
             if (name || city) {
-                // You might want to store additional user data in a separate collection
                 console.log("Additional user data:", { name, city });
             }
             
@@ -27,6 +25,13 @@ export const authService = {
 
     async signIn(email: string, password: string) {
         try {
+            // First try to delete any existing session
+            try {
+                await account.deleteSession('current');
+            } catch (e) {
+                console.log("No existing session to delete");
+            }
+            
             const session = await account.createEmailSession(email, password);
             console.log("User signed in successfully:", session);
             return session;
@@ -38,6 +43,13 @@ export const authService = {
 
     async signInWithGoogle() {
         try {
+            // First try to delete any existing session
+            try {
+                await account.deleteSession('current');
+            } catch (e) {
+                console.log("No existing session to delete");
+            }
+
             account.createOAuth2Session(
                 'google',
                 'https://cloud.appwrite.io/v1/account/sessions/oauth2/callback/google/679c5284000cf54b1b13',

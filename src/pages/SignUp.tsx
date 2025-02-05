@@ -55,7 +55,7 @@ const SignUp = () => {
                     />
                 </div>
 
-                {/* {aiSuggestion && (
+                {aiSuggestion && (
                     <div className="mt-8 p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-lg">
                         <h3 className="text-lg font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                             AI Financial Insight
@@ -64,7 +64,7 @@ const SignUp = () => {
                             {aiSuggestion}
                         </p>
                     </div>
-                )} */}
+                )}
             </div>
         </div>
     );

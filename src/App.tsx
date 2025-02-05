@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
+import Help from "./pages/Help";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +22,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="*" element={<Navigate to="/signup" replace />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="*" element={<Navigate to="/signin" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

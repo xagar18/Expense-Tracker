@@ -10,10 +10,10 @@ export const databases = new Databases(client);
 export const APPWRITE_DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 export const TRANSACTIONS_COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
 
-// console.log('Appwrite client initialized with project:', '679c5284000cf54b1b13');
 
 export interface Transaction {
     id: string;
+    $id: string; // Added $id field for Appwrite document ID
     user_id: string;
     type: 'income' | 'expense';
     amount: number;
@@ -24,7 +24,7 @@ export interface Transaction {
 }
 
 export const transactionService = {
-    async createTransaction(transaction: Omit<Transaction, 'id' | 'created_at'>) {
+    async createTransaction(transaction: Omit<Transaction, 'id' | '$id' | 'created_at'>) {
         console.log('Creating transaction:', transaction);
         try {
             const response = await databases.createDocument(

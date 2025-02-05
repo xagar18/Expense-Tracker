@@ -13,9 +13,17 @@ interface TransactionsTableProps {
 export const TransactionsTable = ({ transactions, onTransactionDeleted }: TransactionsTableProps) => {
     const { toast } = useToast();
 
-    const handleDelete = async (transactionId: string) => {
+    const handleDelete = async (transaction: Transaction) => {
         try {
-            await transactionService.deleteTransaction(transactionId);
+            // Use $id instead of id for Appwrite documents
+            const documentId = transaction.$id;
+            if (!documentId) {
+                throw new Error("Invalid transaction ID");
+            }
+            
+            console.log("Attempting to delete transaction:", documentId);
+            await transactionService.deleteTransaction(documentId);
+            console.log("Transaction deleted successfully");
             onTransactionDeleted();
             toast({
                 title: "Success",
@@ -24,9 +32,9 @@ export const TransactionsTable = ({ transactions, onTransactionDeleted }: Transa
         } catch (error) {
             console.error("Error deleting transaction:", error);
             toast({
-                title: "Error",
-                description: "Failed to delete transaction",
                 variant: "destructive",
+                title: "Error",
+                description: "Failed to delete transaction. Please try again.",
             });
         }
     };
@@ -48,13 +56,13 @@ export const TransactionsTable = ({ transactions, onTransactionDeleted }: Transa
                             <TableHead>Category</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Amount</TableHead>
-                            <TableHead>Actions</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {transactions.map((transaction) => (
-                            <TableRow key={transaction.id} className="group hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
-                                <TableCell>{new Date(transaction.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</TableCell>
+                            <TableRow key={transaction.$id} className="group hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
+                                <TableCell>{new Date(transaction.created_at).toLocaleDateString()}</TableCell>
                                 <TableCell>
                                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                         transaction.type === 'income' 
@@ -70,14 +78,14 @@ export const TransactionsTable = ({ transactions, onTransactionDeleted }: Transa
                                 <TableCell className={transaction.type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
                                     ${transaction.amount.toFixed(2)}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="text-right">
                                     <Button 
                                         variant="ghost" 
-                                        size="sm" 
-                                        onClick={() => handleDelete(transaction.id)}
-                                        className="opacity-1 group-hover:opacity-100 transition-opacity"
+                                        size="icon"
+                                        onClick={() => handleDelete(transaction)}
+                                        className="opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50"
                                     >
-                                        <Trash className="h-4 w-4 text-red-500" />
+                                        <Trash className="h-4 w-4" />
                                     </Button>
                                 </TableCell>
                             </TableRow>
