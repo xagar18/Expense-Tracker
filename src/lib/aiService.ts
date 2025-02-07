@@ -1,13 +1,15 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Transaction } from "./appwrite";
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GENERATIVE_AI_KEY);
+// Initialize two separate instances with different API keys
+const insightsAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_GENERATIVE_AI_KEY);
+const chatAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_GENERATIVE_AI_KEY2);
 
 export const aiService = {
     async getTransactionInsights(transactions: Transaction[]) {
         try {
             console.log("Generating AI insights for transactions:", transactions);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            const model = insightsAI.getGenerativeModel({ model: "gemini-pro" });
 
             let prompt;
             if (transactions.length === 0) {
@@ -31,7 +33,7 @@ export const aiService = {
     async getCategoryRecommendation(description: string) {
         try {
             console.log("Getting category recommendation for:", description);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            const model = insightsAI.getGenerativeModel({ model: "gemini-pro" });
 
             const prompt = `Based on this transaction description, suggest the most appropriate category for budgeting purposes. Only return the category name, nothing else: "${description}"`;
 
@@ -50,7 +52,7 @@ export const aiService = {
     async getChatResponse(message: string) {
         try {
             console.log("Getting chat response for:", message);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            const model = chatAI.getGenerativeModel({ model: "gemini-pro" });
 
             const prompt = `You are a helpful financial assistant. Please provide a concise and helpful response to this question about personal finance: "${message}"`;
 

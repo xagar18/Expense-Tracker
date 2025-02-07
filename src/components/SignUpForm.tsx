@@ -1,9 +1,11 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useToast } from "./ui/use-toast";
 import { authService } from "@/lib/auth";
+import { Shield, Lock, Zap } from "lucide-react";
 
 interface SignUpFormProps {
   onSuccess: () => void;
@@ -66,100 +68,108 @@ export const SignUpForm = ({ onSuccess, onClose, switchToSignIn }: SignUpFormPro
   };
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-2">
-        <Label htmlFor="name">Full Name</Label>
-        <Input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your full name"
-          className="bg-white dark:bg-gray-800"
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="city">City</Label>
-        <Input
-          id="city"
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter your city"
-          className="bg-white dark:bg-gray-800"
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          className="bg-white dark:bg-gray-800"
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Create a password"
-          className="bg-white dark:bg-gray-800"
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="confirm-password">Confirm Password</Label>
-        <Input
-          id="confirm-password"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm your password"
-          className="bg-white dark:bg-gray-800"
-        />
-      </div>
-      <Button
-        onClick={handleSignUp}
-        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-        disabled={isLoading}
-      >
-        {isLoading ? "Creating account..." : "Create Account"}
-      </Button>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-gray-300" />
+    <div className="space-y-8">
+      {/* Features Section */}
+     
+
+      <div className="space-y-4">
+        <div className="grid gap-2">
+          <Label htmlFor="name">Full Name</Label>
+          <Input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your full name"
+            className="bg-white dark:bg-gray-800"
+          />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white dark:bg-gray-900 px-2 text-gray-500">
-            Or continue with
-          </span>
+        <div className="grid gap-2">
+          <Label htmlFor="city">City</Label>
+          <Input
+            id="city"
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Enter your city"
+            className="bg-white dark:bg-gray-800"
+          />
         </div>
-      </div>
-      <Button
-        onClick={handleGoogleSignUp}
-        variant="outline"
-        className="w-full"
-      >
-        <img 
-          src="https://www.google.com/favicon.ico" 
-          alt="Google" 
-          className="w-4 h-4 mr-2"
-        />
-        Continue with Google
-      </Button>
-      <div className="text-center text-sm">
-        <span className="text-gray-500">Already have an account?</span>{" "}
-        <button
-          onClick={switchToSignIn}
-          className="text-purple-600 hover:underline font-medium"
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            className="bg-white dark:bg-gray-800"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Create a password"
+            className="bg-white dark:bg-gray-800"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="confirm-password">Confirm Password</Label>
+          <Input
+            id="confirm-password"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm your password"
+            className="bg-white dark:bg-gray-800"
+          />
+        </div>
+        <Button
+          onClick={handleSignUp}
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+          disabled={isLoading}
         >
-          Sign in instead
-        </button>
+          {isLoading ? "Creating account..." : "Create Account"}
+        </Button>
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white dark:bg-gray-900 px-2 text-gray-500">
+              Or continue with
+            </span>
+          </div>
+        </div>
+        <Button
+          onClick={handleGoogleSignUp}
+          variant="outline"
+          className="w-full"
+        >
+          <img 
+            src="https://www.google.com/favicon.ico" 
+            alt="Google" 
+            className="w-4 h-4 mr-2"
+          />
+          Continue with Google
+        </Button>
+        <div className="text-center text-sm">
+          <span className="text-gray-500">Already have an account?</span>{" "}
+          <button
+            onClick={switchToSignIn}
+            className="text-purple-600 hover:underline font-medium"
+          >
+            Sign in instead
+          </button>
+        </div>
       </div>
+
+      {/* Testimonial Section */}
+     
     </div>
   );
 };

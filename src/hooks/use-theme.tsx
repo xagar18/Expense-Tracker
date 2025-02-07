@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 export const useTheme = () => {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'light';
+      return localStorage.getItem('theme') || 'dark';
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {

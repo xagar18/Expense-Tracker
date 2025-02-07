@@ -1,27 +1,16 @@
+
 import { SignUpForm } from "@/components/SignUpForm";
 import { useNavigate } from "react-router-dom";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
-import { getFinancialInsights } from "@/lib/gemini";
-import { useEffect, useState } from "react";
 
 const SignUp = () => {
     const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
-    const [aiSuggestion, setAiSuggestion] = useState<string>("");
-
-    useEffect(() => {
-        const getInitialInsight = async () => {
-            console.log("Fetching initial AI insight for signup page");
-            const insight = await getFinancialInsights([]);
-            setAiSuggestion(insight);
-        };
-        getInitialInsight();
-    }, []);
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 p-4">
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white dark:from-gray-900 dark:to-gray-800">
             <div className="fixed top-4 right-4">
                 <Button
                     variant="outline"
@@ -37,34 +26,68 @@ const SignUp = () => {
                 </Button>
             </div>
             
-            <div className="w-full max-w-md space-y-8">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                        Create Account
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Join FinTrack to manage your finances better
-                    </p>
-                </div>
+            <div className="flex min-h-screen">
+                {/* Left Section - Form */}
+                <div className="flex-1 flex items-center justify-center p-8">
+                    <div className="w-full max-w-md space-y-8">
+                        <div className="text-center">
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                                Create your account
+                            </h1>
+                            <p className="mt-2 text-gray-600 dark:text-gray-400">
+                                Start managing your finances with FinTrack
+                            </p>
+                        </div>
 
-                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl p-8 space-y-6">
-                    <SignUpForm 
-                        onSuccess={() => navigate('/')}
-                        onClose={() => {}}
-                        switchToSignIn={() => navigate('/signin')}
-                    />
-                </div>
-
-                {aiSuggestion && (
-                    <div className="mt-8 p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-lg">
-                        <h3 className="text-lg font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                            AI Financial Insight
-                        </h3>
-                        <p className="text-muted-foreground text-sm">
-                            {aiSuggestion}
-                        </p>
+                        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-lg shadow-xl">
+                            <SignUpForm 
+                                onSuccess={() => navigate('/')}
+                                onClose={() => {}}
+                                switchToSignIn={() => navigate('/signin')}
+                            />
+                        </div>
                     </div>
-                )}
+                </div>
+
+                {/* Right Section - Features */}
+                <div className="hidden lg:flex flex-1">
+                    <div className="w-full flex items-center justify-center p-12">
+                        <div className="space-y-8 max-w-lg">
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                                Why choose FinTrack?
+                            </h2>
+                            <div className="grid gap-6">
+                                <div className="flex items-start gap-4">
+                                    <div className="h-8 w-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                                        <span className="text-purple-600 dark:text-purple-400">1</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 dark:text-white">Easy Expense Tracking</h3>
+                                        <p className="text-gray-600 dark:text-gray-400">Log and categorize your expenses effortlessly</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div className="h-8 w-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                                        <span className="text-purple-600 dark:text-purple-400">2</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 dark:text-white">Smart Budgeting</h3>
+                                        <p className="text-gray-600 dark:text-gray-400">Set and track budgets with intelligent insights</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div className="h-8 w-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                                        <span className="text-purple-600 dark:text-purple-400">3</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 dark:text-white">Secure Platform</h3>
+                                        <p className="text-gray-600 dark:text-gray-400">Your financial data is protected with bank-grade security</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

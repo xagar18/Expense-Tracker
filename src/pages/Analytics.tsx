@@ -169,9 +169,14 @@ const Analytics = () => {
             <Navbar />
             <div className="container mx-auto pt-24 px-4">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
-                    <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                        Financial Analytics
-                    </h1>
+                    <div className="space-y-2">
+                        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            Financial Analytics
+                        </h1>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Track your financial journey with detailed insights and analytics
+                        </p>
+                    </div>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={timeFrame} onValueChange={(value: "month" | "year") => setTimeFrame(value)}>
                             <SelectTrigger className="w-full sm:w-[180px]">
@@ -203,18 +208,21 @@ const Analytics = () => {
                     <Card className="p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 border-purple-200 dark:border-purple-900">
                         <h3 className="font-semibold mb-2 text-gray-600 dark:text-gray-300">Total Expenses</h3>
                         <p className="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400">${totalExpenses.toLocaleString()}</p>
+                        <p className="text-sm text-gray-500 mt-2">Track all your spending in one place</p>
                     </Card>
                     <Card className="p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 border-green-200 dark:border-green-900">
                         <h3 className="font-semibold mb-2 text-gray-600 dark:text-gray-300">Total Income</h3>
                         <p className="text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400">${totalIncome.toLocaleString()}</p>
+                        <p className="text-sm text-gray-500 mt-2">Monitor your earnings effectively</p>
                     </Card>
                     <Card className="p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 border-pink-200 dark:border-pink-900">
                         <h3 className="font-semibold mb-2 text-gray-600 dark:text-gray-300">Average Monthly Expense</h3>
                         <p className="text-2xl md:text-3xl font-bold text-pink-600 dark:text-pink-400">${averageMonthlyExpense.toLocaleString()}</p>
+                        <p className="text-sm text-gray-500 mt-2">Keep track of your monthly spending patterns</p>
                     </Card>
                 </div>
 
-                <Card className="p-4 md:p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80">
+                <Card className="p-4 md:p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 mb-8">
                     <h2 className="text-xl font-semibold mb-6 text-gray-800 dark:text-white px-2">
                         {timeFrame === 'year' ? 'Monthly Income vs Expenses Trends' : 'Daily Income vs Expenses Trends'}
                     </h2>
@@ -292,6 +300,59 @@ const Analytics = () => {
                         )}
                     </div>
                 </Card>
+
+                <div className="grid md:grid-cols-2 gap-6 pb-4">
+                    <Card className="p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80">
+                        <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Financial Tips</h3>
+                        <ul className="space-y-3">
+                            <li className="flex items-start gap-2">
+                                <div className="rounded-full bg-green-100 dark:bg-green-900/30 p-1">
+                                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span className="text-sm text-gray-600 dark:text-gray-300">Track your daily expenses for better financial control</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <div className="rounded-full bg-green-100 dark:bg-green-900/30 p-1">
+                                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span className="text-sm text-gray-600 dark:text-gray-300">Set monthly budgets for different categories</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <div className="rounded-full bg-green-100 dark:bg-green-900/30 p-1">
+                                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <span className="text-sm text-gray-600 dark:text-gray-300">Review your spending patterns regularly</span>
+                            </li>
+                        </ul>
+                    </Card>
+                    <Card className="p-6 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80">
+                        <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Quick Stats</h3>
+                        <div className="space-y-4">
+                            <div>
+                                <div className="flex justify-between mb-1">
+                                    <span className="text-sm text-gray-600 dark:text-gray-300">Monthly Savings Rate</span>
+                                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                        {totalIncome > 0 ? Math.round(((totalIncome - totalExpenses) / totalIncome) * 100) : 0}%
+                                    </span>
+                                </div>
+                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div 
+                                        className="bg-purple-600 h-2 rounded-full" 
+                                        style={{ 
+                                            width: `${totalIncome > 0 ? Math.round(((totalIncome - totalExpenses) / totalIncome) * 100) : 0}%` 
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
+                </div>
             </div>
         </div>
     );
